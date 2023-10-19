@@ -1,0 +1,42 @@
+{
+  "name": "geseapi",
+  "version": "1.0.0",
+  "description": "API REST de gestion des services enseignant",
+  "main": "gesapi.js",
+  "dependencies": {
+    "axios": "^0.21.4",
+    "bcryptjs": "^2.4.3",
+    "check-types": "^11.1.2",
+    "cookie-parser": "^1.4.5",
+    "cors": "^2.8.5",
+    "docdash": "^1.2.0",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-session": "^1.17.2",
+    "form-data": "^4.0.0",
+    "fs": "0.0.1-security",
+    "https": "^1.0.0",
+    "jsonwebtoken": "^8.5.1",
+    "ldap-authentication": "^2.2.8",
+    "mongoose": "^5.13.9",
+    "node-cas-authentication": "0.0.15",
+    "uuid": "^8.3.2",
+    "validator": "^13.6.0"
+  },
+  "scripts": {
+    "test": "node geseapi"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://gitlab.com/hervald/geseapi.git"
+  },
+  "author": "stephane Domas",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://gitlab.com/hervald/geseapi/issues"
+  },
+  "homepage": "https://gitlab.com/hervald/geseapi#readme",
+  "devDependencies": {
+    "body-parser": "^1.20.2"
+  }
+}
