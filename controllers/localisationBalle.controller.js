@@ -81,6 +81,7 @@ const create = async function (req, res, next) {
         answer.set(LocalisationBallErrors.getError(LocalisationBallErrors.ERR_LB_INVALID_FIND_GOLFEUR_REQUEST))
         return next(answer);
     }
+    golfeur = golfeur._id;
 
     let lb = {
         golfeur_id: golfeur,

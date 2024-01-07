@@ -16,6 +16,7 @@ function checkNom(nom) {
         answer.set(GestionnaireTrouError.getError(GestionnaireTrouError.ERR_GT_NAME_NOT_DEFINED));
         return false;
     }
+    return true;
 }
 
 function checkPrenom(prenom) {
@@ -23,6 +24,7 @@ function checkPrenom(prenom) {
         answer.set(GestionnaireTrouError.getError(GestionnaireTrouError.ERR_GT_PRENOM_NOT_DEFINED));
         return false;
     }
+    return true;
 }
 
 function checkEmail(email) {
@@ -30,6 +32,7 @@ function checkEmail(email) {
         answer.set(GestionnaireTrouError.getError(GestionnaireTrouError.ERR_GT_EMAIL_NOT_DEFINED));
         return false;
     }
+    return true;
 }
 
 function checkMDP(mot_de_passe) {
@@ -37,6 +40,7 @@ function checkMDP(mot_de_passe) {
         answer.set(GestionnaireTrouError.getError(GestionnaireTrouError.ERR_GT_MDP_NOT_DEFINED));
         return false;
     }
+    return true;
 }
 
 function checkData(data) {
@@ -90,7 +94,7 @@ const create = async function (req, res, next) {
         nom: req.body.nom,
         prenom: req.body.prenom,
         email: req.body.email,
-        mdp: req.body.mot_de_passe
+        mot_de_passe: req.body.mot_de_passe
     };
 
     GestionnaireTrou.create(gt, async function(err, gestionnaireTrou) {

@@ -20,6 +20,7 @@ const cameraSurveillanceController = require('../controllers/cameraSurveillance.
 const localisationBalleController = require('../controllers/localisationBalle.controller');
 const etatSolController = require('../controllers/etatSol.controller');
 const gestionnaireTrousController = require('../controllers/gestionnaireTrous.controller');
+const imageDrapeauController = require('../controllers/imageDrapeau.controller');
 
 const asyncRoute = ctrl =>
   (req, res, next) => {
@@ -85,7 +86,10 @@ router.patch('/gestionnaireTrous/update', asyncRoute(gestionnaireTrousController
 router.get('/gestionnaireTrous/get', asyncRoute(gestionnaireTrousController.getGestionnairesTrou));
 router.get('/gestionnaireTrous/delete', asyncRoute(gestionnaireTrousController.deleteGestionnaireTrou));
 
-
+router.post('/imageDrapeau/create', asyncRoute(imageDrapeauController.create));
+router.patch('/imageDrapeau/update', asyncRoute(imageDrapeauController.update));
+router.get('/imageDrapeau/get', asyncRoute(imageDrapeauController.getImagesDrapeaux));
+router.get('/imageDrapeau/delete', asyncRoute(imageDrapeauController.deleteImagesDrapeau));
 
 
 router.post('/auth/signin', asyncRoute(authController.signIn));

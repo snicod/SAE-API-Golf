@@ -75,21 +75,21 @@ const create = async function (req, res, next) {
         return next(answer);
     }
 
-    let trou = null
+    let trou = null;
     trou = await Trou.findOne({numero:req.body.trou_id}).exec();
-    trou = trou._id;
     if (trou === null) {
         answer.set(CameraSurveillanceErrors.getError(CameraSurveillanceErrors.ERR_CS_INVALID_FIND_TROU_REQUEST))
         return next(answer);
     }
+    trou = trou._id;
+
 
     let cs = {
         trou_id: trou,
         date: req.body.date,
         video_url: req.body.video_url
     };
-
-    EtatSol.create(cs, async function(err, cameraSurveillance) {
+    CameraSurveillance.create(cs, async function(err, cameraSurveillance) {
         if (err) {
             answer.set(CameraSurveillanceErrors.getError(CameraSurveillanceErrors.ERR_CS_CANNOT_CREATE))
             answer.data = answer.data + '\n' + err;
