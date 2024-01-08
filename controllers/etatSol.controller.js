@@ -97,11 +97,11 @@ const create = async function (req, res, next) {
 
     let trou = null
     trou = await Trou.findOne({numero:req.body.trou_id}).exec();
-    trou = trou._id;
     if (trou === null) {
         answer.set(EtatSolErrors.getError(EtatSolErrors.ERR_ES_INVALID_FIND_TROU_REQUEST))
         return next(answer);
     }
+    trou = trou._id;
 
     let es = {
         trou_id: trou,

@@ -14,7 +14,7 @@ function checkNumero(numero) {
 }
 
 function checkGestionnaireId(gestionnaireId) {
-    if (gestionnaireId === undefined || typeof gestionnaireId !== 'string' || gestionnaireId === null) {
+    if (gestionnaireId === undefined) {
         answer.set(TrouErrors.getError(TrouErrors.ERR_TROU_GESTIONNAIRE_ID_NOT_DEFINED));
         return false;
     }
@@ -22,7 +22,7 @@ function checkGestionnaireId(gestionnaireId) {
 }
 
 function checkDrapeauId(drapeauId) {
-    if (drapeauId === undefined || typeof drapeauId !== 'string' || drapeauId === null) {
+    if (drapeauId === undefined) {
         answer.set(TrouErrors.getError(TrouErrors.ERR_TROU_DRAPEAU_ID_NOT_DEFINED));
         return false;
     }
@@ -41,7 +41,7 @@ function checkDrapeauId(drapeauId) {
  */
 const create = async function (req, res, next) {
     answer.reset();
-
+    console.log("WTF")
     // Vérification de la validité des paramètres
     if (
         !checkNumero(req.body.numero) ||
@@ -50,19 +50,17 @@ const create = async function (req, res, next) {
     ) {
         return next(answer);
     }
-
     let gestionnaire = null;
     let drapeau = null;
     gestionnaire = await GestionnaireTrous.findOne({ _id: req.body.gestionnaire_id }).exec();
-
     drapeau = await Drapeau.findOne({ _id: req.body.drapeau_id }).exec();
-    if (gestionnaireTrous === null || drapeau === null) {
+    if (gestionnaire === null || drapeau === null) {
         answer.set(TrouErrors.getError(TrouErrors.ERR_TROU_GESTIONNAIRE_OR_DRAPEAU_NOT_FOUND));
         return next(answer);
     }
-
     gestionnaire = gestionnaire._id;
     drapeau = drapeau._id;
+
 
     const trouData = {
         numero: req.body.numero,
