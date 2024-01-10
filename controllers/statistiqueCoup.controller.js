@@ -39,9 +39,14 @@ function checkConseils(conseils) {
  * @param {Object} req - L'objet de requête (fourni par express)
  * @param {Object} req.body - Les données envoyées avec la requête
  * @param {string} req.body.golfeur_id - L'ID du golfeur associé à la statistique de coup
+ * @param {string} req.body.trou_id - L'ID du trou associé à la statistique de coup
  * @param {number} req.body.vitesse - La vitesse du coup
  * @param {number} req.body.trajectoire - La trajectoire du coup
  * @param {string} req.body.conseils - Les conseils liés au coup
+ * @param {number} req.body.latitude_depart - La latitude du point de départ
+ * @param {number} req.body.longitude_depart - La longitude du point de départ
+ * @param {number} req.body.latitude_arrivee - La latitude du point d'arrivée
+ * @param {number} req.body.longitude_arrivee - La longitude du point d'arrivée
  * @param {Function} next - La prochaine middleware à appeler
  * @alias module:StatistiqueCoupController.create
  */
@@ -57,19 +62,32 @@ const create = async function (req, res, next) {
         return next(answer);
     }
     let golfeur = null;
-    golfeur = await Golfeur.findOne({ _id: req.body.golfeur_id }).exec();
-    if (golfeur === null) {
-        answer.set(StatistiqueCoupErrors.getError(StatistiqueCoupErrors.ERR_STATISTIQUE_COUP_GOLFEUR_ID_NOT_VALID));
+    let trou = null;
+
+    try {
+        golfeur = await Golfeur.findOne({ _id: req.body.golfeur_id }).exec();
+        trou = await Trou.findOne({ numero: req.body.trou_id }).exec();
+
+        if (golfeur === null || trou === null) {
+            answer.set(StatistiqueCoupErrors.getError(StatistiqueCoupErrors.ERR_STATISTIQUE_COUP_GOLFEUR_OR_TROU_NOT_VALID));
+            return next(answer);
+        }
+    } catch (err) {
+        answer.set(ModuleErrors.getError(ModuleErrors.ERR_INTERNAL_SERVER));
         return next(answer);
     }
 
-    golfeur = golfeur._id;
-
     const statistiqueCoupData = {
-        golfeur_id: golfeur,
+        golfeur_id: golfeur._id,
+        trou_id: trou._id,
+        date: new Date(),
         vitesse: req.body.vitesse,
         trajectoire: req.body.trajectoire,
         conseils: req.body.conseils,
+        latitude_depart: req.body.latitude_depart,
+        longitude_depart: req.body.longitude_depart,
+        latitude_arrivee: req.body.latitude_arrivee,
+        longitude_arrivee: req.body.longitude_arrivee,
     };
 
     // Création de la statistique de coup

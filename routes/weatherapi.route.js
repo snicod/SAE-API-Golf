@@ -54,6 +54,7 @@ router.get('/drapeau/delete', asyncRoute(drapeauController.deleteDrapeau));
 router.post('/golfeur/create', asyncRoute(golfeurController.create));
 router.patch('/golfeur/update', asyncRoute(golfeurController.update));
 router.get('/golfeur/get', asyncRoute(golfeurController.getGolfeurs));
+router.get('/golfeur/get/:id', asyncRoute(golfeurController.getGolfeurById));
 router.get('/golfeur/delete', asyncRoute(golfeurController.deleteGolfeur));
 
 router.post('/trou/create', asyncRoute(trouController.create));
