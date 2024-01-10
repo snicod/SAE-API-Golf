@@ -204,10 +204,31 @@ const deleteGolfeur = async function (req, res, next) {
     res.status(200).send(answer);
 }
 
+const getGolfeurById = async function (req, res, next) {
+    answer.reset();
+
+    let golfeur = null;
+    console.log(req.params.id)
+
+    // Récupération du golfeur par ID
+    try {
+        golfeur = await Golfeur.findOne({ _id: req.params.id }).exec();
+    } catch (err) {
+        answer.set(GolfeurErrors.getError(GolfeurErrors.ERR_GOLFEUR_INVALID_FIND_REQUEST));
+        return next(answer);
+    }
+
+    // Renvoie le golfeur
+    answer.data = golfeur;
+    res.status(200).send(answer);
+}
+
+
 
 module.exports = {
     create,
     update,
     getGolfeurs,
     deleteGolfeur,
+    getGolfeurById
 };
