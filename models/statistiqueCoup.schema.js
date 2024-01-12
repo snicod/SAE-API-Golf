@@ -12,6 +12,8 @@ let StatistiqueCoupSchema = new Schema({
   longitude_depart: { type: Number },
   latitude_arrivee: { type: Number },
   longitude_arrivee: { type: Number },
+  acceleration_x: { type: Number },
+  acceleration_y: { type: Number },
 });
 
 module.exports = StatistiqueCoupSchema;

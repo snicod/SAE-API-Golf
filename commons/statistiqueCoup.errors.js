@@ -22,7 +22,7 @@ const statistiqueCoupErrors = [
     { number: ERR_STATISTIQUE_COUP_CANNOT_UPDATE, status: 400, message: { en: 'cannot update a statistiqueCoup', fr: 'impossible de mettre à jour une statistique de coup' } },
     { number: ERR_STATISTIQUE_COUP_INVALID_FIND_REQUEST, status: 400, message: { en: 'invalid find all statistiqueCoup request', fr: 'requête invalide pour trouver toutes les statistiques de coup' } },
     { number: ERR_STATISTIQUE_COUP_CANNOT_DELETE, status: 400, message: { en: 'cannot delete a statistiqueCoup', fr: 'impossible de supprimer une statistique de coup' } },
-    { number: ERR_STATISTIQUE_COUP_GOLFEUR_OR_TROU_NOT_VALID, status: 400, message: { en: 'golfeur_id is not valid', fr: 'l\'id du golfeur n\'est pas valide' } },
+    { number: ERR_STATISTIQUE_COUP_GOLFEUR_OR_TROU_NOT_VALID, status: 400, message: { en: 'golfeur_id is not valid', fr: 'l\'id du golfeur ou le numéro du trou n\'est pas valide' } },
 ];
 
 const getError = (number, lang) => {

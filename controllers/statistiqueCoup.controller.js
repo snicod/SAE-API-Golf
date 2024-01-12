@@ -47,6 +47,8 @@ function checkConseils(conseils) {
  * @param {number} req.body.longitude_depart - La longitude du point de départ
  * @param {number} req.body.latitude_arrivee - La latitude du point d'arrivée
  * @param {number} req.body.longitude_arrivee - La longitude du point d'arrivée
+ * @param {number} req.body.acceleration_x - L'accélération sur l'axe X
+ * @param {number} req.body.acceleration_y - L'accélération sur l'axe Y
  * @param {Function} next - La prochaine middleware à appeler
  * @alias module:StatistiqueCoupController.create
  */
@@ -88,6 +90,8 @@ const create = async function (req, res, next) {
         longitude_depart: req.body.longitude_depart,
         latitude_arrivee: req.body.latitude_arrivee,
         longitude_arrivee: req.body.longitude_arrivee,
+        acceleration_x: req.body.acceleration_x,
+        acceleration_y: req.body.acceleration_y,
     };
 
     // Création de la statistique de coup
