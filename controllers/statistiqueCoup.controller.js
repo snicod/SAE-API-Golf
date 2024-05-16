@@ -229,9 +229,36 @@ const deleteStatistiqueCoup = async function (req, res, next) {
     answer.data = statistiqueCoup;
     res.status(200).send(answer);
 }
+
+/**
+ * Get golf stroke statistics by ID
+ * @param {Object} req - The request object (provided by express)
+ * @param {Object} res - The result object used to send the result to the client (provided by express)
+ * @param {Function} next - The next middleware to call after this one
+ */
+const getStatistiqueCoupById = async function (req, res, next) {
+    answer.reset();
+
+    let statistiqueCoup = null;
+
+    // Retrieve golf stroke statistics by ID
+    try {
+        statistiqueCoup = await StatistiqueCoup.findOne({ _id: req.params.id }).exec();
+    } catch (err) {
+        answer.set(StatistiqueCoupErrors.getError(StatistiqueCoupErrors.ERR_STATISTIQUE_COUP_INVALID_FIND_REQUEST));
+        return next(answer);
+    }
+
+    // Send golf stroke statistics
+    answer.data = statistiqueCoup;
+    res.status(200).send(answer);
+};
+
+
 module.exports = {
     create,
     update,
     getStatistiquesCoups,
     deleteStatistiqueCoup,
+    getStatistiqueCoupById,
 };

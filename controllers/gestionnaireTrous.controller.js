@@ -227,10 +227,36 @@ const getGestionnairesTrou = async function (req, res, next) {
     res.status(200).send(answer);
 };
 
+/**
+ * Get a hole manager by ID
+ * @param {Object} req - The request object (provided by express)
+ * @param {Object} res - The result object used to send the result to the client (provided by express)
+ * @param {Function} next - The next middleware to call after this one
+ */
+const getGestionnaireTrouById = async function (req, res, next) {
+    answer.reset();
+
+    let gestionnaireTrou = null;
+
+    // Retrieve the hole manager by ID
+    try {
+        gestionnaireTrou = await GestionnaireTrou.findOne({ _id: req.params.id }).exec();
+    } catch (err) {
+        answer.set(GestionnaireTrouError.getError(GestionnaireTrouError.ERR_GT_INVALID_FIND_REQUEST));
+        return next(answer);
+    }
+
+    // Send the hole manager
+    answer.data = gestionnaireTrou;
+    res.status(200).send(answer);
+};
+
+
 module.exports = {
     create,
     update,
     register,
     deleteGestionnaireTrou,
     getGestionnairesTrou,
+    getGestionnaireTrouById,
 }

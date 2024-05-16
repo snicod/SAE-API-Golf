@@ -203,6 +203,29 @@ const deleteTrou = async function (req, res, next) {
     res.status(200).send(answer);
 }
 
+/**
+ * Get a golf hole by ID
+ * @param {Object} req - The request object (provided by express)
+ * @param {Object} res - The result object used to send the result to the client (provided by express)
+ * @param {Function} next - The next middleware to call after this one
+ */
+const getTrouById = async function (req, res, next) {
+    answer.reset();
+
+    let trou = null;
+
+    // Retrieve the golf hole by ID
+    try {
+        trou = await Trou.findOne({ _id: req.params.id }).exec();
+    } catch (err) {
+        answer.set(TrouErrors.getError(TrouErrors.ERR_TROU_INVALID_FIND_REQUEST));
+        return next(answer);
+    }
+
+    // Send the golf hole
+    answer.data = trou;
+    res.status(200).send(answer);
+};
 
 
 module.exports = {
@@ -210,4 +233,5 @@ module.exports = {
     update,
     deleteTrou,
     getTrous,
+    getTrouById,
 };

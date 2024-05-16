@@ -218,9 +218,37 @@ const getCamerasSurveillance = async function (req, res, next) {
     res.status(200).send(answer);
 };
 
+/**
+ * Get a surveillance camera by ID
+ * @param {Object} req - The request object (provided by express)
+ * @param {Object} res - The result object used to send the result to the client (provided by express)
+ * @param {Function} next - The next middleware to call after this one
+ */
+const getCameraSurveillanceById = async function (req, res, next) {
+    answer.reset();
+
+    console.log('get camera surveillance by id');
+
+    let cameraSurveillance = null;
+
+    // Retrieve the surveillance camera by ID
+    try {
+        cameraSurveillance = await CameraSurveillance.findOne({ _id: req.params.id }).exec();
+    } catch (err) {
+        answer.set(CameraSurveillanceErrors.getError(CameraSurveillanceErrors.ERR_CS_INVALID_FIND_REQUEST));
+        return next(answer);
+    }
+
+    // Send the surveillance camera
+    answer.data = cameraSurveillance;
+    res.status(200).send(answer);
+};
+
+
 module.exports = {
     create,
     update,
     deleteCameraSurveillance,
     getCamerasSurveillance,
+    getCameraSurveillanceById,
 }
