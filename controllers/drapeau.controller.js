@@ -176,10 +176,35 @@ const deleteDrapeau = async function (req, res, next) {
     res.status(200).send(answer);
 }
 
+/**
+ * Get a flag by ID
+ * @param {Object} req - The request object (provided by express)
+ * @param {Object} res - The result object used to send the result to the client (provided by express)
+ * @param {Function} next - The next middleware to call after this one
+ */
+const getDrapeauById = async function (req, res, next) {
+    answer.reset();
+
+    let drapeau = null;
+
+    // Retrieve the flag by ID
+    try {
+        drapeau = await Drapeau.findOne({ _id: req.params.id }).exec();
+    } catch (err) {
+        answer.set(DrapeauErrors.getError(DrapeauErrors.ERR_DRAPEAU_INVALID_FIND_REQUEST));
+        return next(answer);
+    }
+
+    // Send the flag
+    answer.data = drapeau;
+    res.status(200).send(answer);
+};
+
 
 module.exports = {
     create,
     update,
     getDrapeaux,
     deleteDrapeau,
+    getDrapeauById,
 };

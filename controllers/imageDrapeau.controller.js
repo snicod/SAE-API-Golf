@@ -156,9 +156,35 @@ const deleteImagesDrapeau = async function (req, res, next) {
     res.status(200).send(answer);
 };
 
+/**
+ * Get a flag image by ID
+ * @param {Object} req - The request object (provided by express)
+ * @param {Object} res - The result object used to send the result to the client (provided by express)
+ * @param {Function} next - The next middleware to call after this one
+ */
+const getImageDrapeauById = async function (req, res, next) {
+    answer.reset();
+
+    let imageDrapeau = null;
+
+    // Retrieve the flag image by ID
+    try {
+        imageDrapeau = await ImagesDrapeaux.findOne({ _id: req.params.id }).exec();
+    } catch (err) {
+        answer.set(ImagesDrapeauxErrors.getError(ImagesDrapeauxErrors.ERR_IMAGESDRAPEAUX_INVALID_FIND_REQUEST));
+        return next(answer);
+    }
+
+    // Send the flag image
+    answer.data = imageDrapeau;
+    res.status(200).send(answer);
+};
+
+
 module.exports = {
     create,
     update,
     getImagesDrapeaux,
     deleteImagesDrapeau,
+    getImageDrapeauById,
 };

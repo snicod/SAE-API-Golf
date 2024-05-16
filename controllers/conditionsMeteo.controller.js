@@ -267,10 +267,36 @@ const deleteConditionMeteo = async function (req, res, next) {
     res.status(200).send(answer);
 }
 
+/**
+ * Get a weather condition by ID
+ * @param {Object} req - The request object (provided by express)
+ * @param {Object} res - The result object used to send the result to the client (provided by express)
+ * @param {Function} next - The next middleware to call after this one
+ */
+const getConditionMeteoById = async function (req, res, next) {
+    answer.reset();
+
+    let conditionMeteo = null;
+
+    // Retrieve the weather condition by ID
+    try {
+        conditionMeteo = await ConditionMeteo.findOne({ _id: req.params.id }).exec();
+    } catch (err) {
+        answer.set(ConditionMeteoErrors.getError(ConditionMeteoErrors.ERR_CM_INVALID_FIND_REQUEST));
+        return next(answer);
+    }
+
+    // Send the weather condition
+    answer.data = conditionMeteo;
+    res.status(200).send(answer);
+};
+
+
 module.exports = {
     create,
     update,
     register,
     deleteConditionMeteo,
     getConditionMeteos,
+    getConditionMeteoById,
 }
