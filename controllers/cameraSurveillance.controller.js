@@ -127,7 +127,7 @@ const update = async function (req, res, next) {
     let cameraSurveillance = null
     // check if module exists
     try {
-        cameraSurveillance = await CameraSurveillance.findOne({_id:id_cameraSurveillance}).exec();
+        cameraSurveillance = await CameraSurveillance.findOne({_id:req.body.id_cameraSurveillance}).exec();
         if (cameraSurveillance === null) {
             answer.set(CameraSurveillanceErrors.getError(CameraSurveillanceErrors.ERR_CS_CANNOT_FIND_ID))
             return next(answer);

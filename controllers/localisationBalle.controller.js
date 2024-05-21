@@ -119,6 +119,7 @@ const create = async function (req, res, next) {
 const update = async function (req, res, next) {
     answer.reset()
     console.log('update localisation ball');
+    console.log("SEPARATEUR");
     // sanity check on parameters
     if (!checkData(req.body.data)) {
         return next(answer);
@@ -127,7 +128,7 @@ const update = async function (req, res, next) {
     let localisationBall = null
     // check if module exists
     try {
-        localisationBall = await LocalisationBall.findOne({_id:id_localisationBall}).exec();
+        localisationBall = await LocalisationBall.findOne({_id:req.body.id_localisationBall}).exec();
         if (localisationBall === null) {
             answer.set(LocalisationBallErrors.getError(LocalisationBallErrors.ERR_LB_CANNOT_FIND_ID))
             return next(answer);
@@ -147,8 +148,11 @@ const update = async function (req, res, next) {
         return next(answer);
     }
 
+    console.log(localisationBall);
+
     localisationBall.save(async function (err) {
         if (err) {
+            console.log("ici l'erreur" + err)
             answer.set(LocalisationBallErrors.getError(LocalisationBallErrors.ERR_LB_CANNOT_UPDATE))
             return next(answer);
         }

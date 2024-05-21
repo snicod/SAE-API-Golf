@@ -135,7 +135,7 @@ const update = async function (req, res, next) {
     let gestionnaireTrou = null
     // check if module exists
     try {
-        gestionnaireTrou = await GestionnaireTrou.findOne({_id:id_GestionnaireTrou}).exec();
+        gestionnaireTrou = await GestionnaireTrou.findOne({_id:req.body.id_GestionnaireTrou}).exec();
         if (gestionnaireTrou === null) {
             answer.set(GestionnaireTrouError.getError(GestionnaireTrouError.ERR_GT_CANNOT_FIND_ID))
             return next(answer);

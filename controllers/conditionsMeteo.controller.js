@@ -175,7 +175,7 @@ const update = async function (req, res, next) {
     let conditionMeteo = null
     // check if module exists
     try {
-        conditionMeteo = await ConditionMeteo.findOne({_id:idConditionMeteo}).exec();
+        conditionMeteo = await ConditionMeteo.findOne({_id:req.body.idConditionMeteo}).exec();
         if (conditionMeteo === null) {
             answer.set(ConditionMeteoErrors.getError(ConditionMeteoErrors.ERR_CM_CANNOT_FIND_ID))
             return next(answer);

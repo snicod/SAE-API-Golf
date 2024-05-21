@@ -149,7 +149,7 @@ const update = async function (req, res, next) {
     let etatSol = null
     // check if module exists
     try {
-        etatSol = await EtatSol.findOne({_id:id_etatSol}).exec();
+        etatSol = await EtatSol.findOne({_id:req.body.id_etatSol}).exec();
         if (etatSol === null) {
             answer.set(EtatSolErrors.getError(EtatSolErrors.ERR_ES_CANNOT_FIND_ID))
             return next(answer);
