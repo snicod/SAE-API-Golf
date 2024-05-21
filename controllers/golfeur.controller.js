@@ -100,10 +100,17 @@ const create = async function (req, res, next) {
 const update = async function (req, res, next) {
     answer.reset();
 
+    console.log(req.body.data);
+
+
     // Vérification de la validité des données
+    /*
     if (!checkData(req.body.data)) {
         return next(answer);
     }
+     */
+
+    console.log("TESTTT");
 
     let golfeur = null;
 
